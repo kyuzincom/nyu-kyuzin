@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>飲食店特化の求人サイト</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fdf8ef;--card:#fff;--tx:#3a3330;--sub:#8a7f78;--line:#eee3d3;--red:#f7706a;--green:#4cbf7a;--blue:#4a9bf0;--yel:#fbd56b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1f1b19;--card:#2a2523;--tx:#f3ebe4;--sub:#b3a69c;--line:#3d3531}}
+:root[data-theme="dark"]{--bg:#1f1b19;--card:#2a2523;--tx:#f3ebe4;--sub:#b3a69c;--line:#3d3531}
+*{box-sizing:inherit}html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN",sans-serif;line-height:1.7}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px}
+.hero{padding:48px 0 30px;text-align:center;background:linear-gradient(160deg,#ffd9b3,#ffb7a8 60%,#f7706a);color:#3a2a25;border-radius:0 0 48px 48px}
+.hero small{display:inline-block;background:#fff8;padding:2px 14px;border-radius:20px;font-weight:700}
+.hero h1{font-size:clamp(30px,8vw,52px);margin:10px 0;line-height:1.25;font-weight:900}
+.hero h1 em{font-style:normal;color:#fff;text-shadow:0 2px 0 #c94a44}
+.hero p{margin:0 0 22px;font-weight:700}
+.badges{display:flex;gap:12px;justify-content:center;margin-bottom:22px}
+.badge{width:92px;height:92px;border-radius:50%;color:#fff;font-weight:900;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:17px;line-height:1.2}
+.badge span{font-size:12px}
+.btn{display:inline-block;border:0;cursor:pointer;color:#fff;background:var(--red);font:inherit;font-weight:900;padding:14px 34px;border-radius:40px;text-decoration:none;font-size:17px;box-shadow:0 4px 0 #c94a44}
+.btn.g{background:var(--green);box-shadow:0 4px 0 #35965c}.btn.b{background:var(--blue);box-shadow:0 4px 0 #3279c4}
+.btn.ghost{background:transparent;color:var(--tx);box-shadow:none;border:2px solid var(--line)}
+h2{text-align:center;font-size:24px;margin:44px 0 6px;background:linear-gradient(transparent 70%,var(--yel) 70%);display:table;margin-inline:auto;padding:0 8px}
+.lead{text-align:center;color:var(--sub);margin:0 0 20px;font-size:14px}
+.recs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rec{border-radius:20px;padding:20px 12px;text-align:center;font-weight:700;cursor:pointer;border:0;font-family:inherit;color:#3a3330}
+.rec b{display:block;font-size:34px}
+.panel{background:var(--card);border-radius:22px;padding:18px;box-shadow:0 2px 14px #0001;position:sticky;top:calc(env(safe-area-inset-top,0px) + 6px);z-index:5}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+input[type=search],input[type=text],input[type=email],input[type=date],select{width:100%;font:inherit;padding:11px 14px;border-radius:14px;border:2px solid var(--line);background:var(--bg);color:var(--tx)}
+.chip{font:inherit;font-weight:700;font-size:13px;padding:6px 14px;border-radius:30px;border:2px solid var(--line);background:var(--card);color:var(--tx);cursor:pointer}
+.chip.on{background:var(--red);border-color:var(--red);color:#fff}
+.sel{display:flex;gap:8px}.sel select{flex:1}
+.cnt{margin:16px 0 8px;font-weight:700;color:var(--sub)}
+.job{background:var(--card);border-radius:24px;overflow:hidden;margin-bottom:22px;box-shadow:0 2px 14px #0001}
+.pic{height:150px;display:flex;align-items:center;justify-content:center;font-size:64px;position:relative}
+.tag{position:absolute;left:14px;top:14px;color:#fff;font-weight:900;font-size:13px;padding:3px 16px;border-radius:20px}
+.body{padding:16px 18px 20px}
+.body h3{margin:0;font-size:20px}.body h3 small{font-weight:500;color:var(--sub);font-size:13px;margin-left:6px}
+.genre{color:#e8a35c;font-size:13px;margin:2px 0 8px}
+dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px;border-top:1px solid var(--line);padding-top:10px;margin-bottom:14px}
+dt{color:var(--sub);font-weight:700}dd{margin:0}
+.job .btn{width:100%;text-align:center}
+.empty{text-align:center;padding:40px 0;color:var(--sub)}
+footer{text-align:center;padding:40px 0 60px;font-weight:700}
+.modal{position:fixed;inset:0;background:#0009;display:none;align-items:flex-end;justify-content:center;z-index:20}
+.modal.open{display:flex}
+.sheet{background:var(--card);width:100%;max-width:560px;max-height:92%;overflow:auto;border-radius:28px 28px 0 0;padding:24px 22px calc(28px + env(safe-area-inset-bottom,0px))}
+.sheet h3{margin:0 0 4px;font-size:21px}
+label{display:block;font-weight:700;margin:14px 0 4px;font-size:14px}
+.err{color:#d33;font-size:13px;min-height:18px}
+.sum{background:var(--bg);border-radius:16px;padding:6px 16px;margin:12px 0}
+.sum p{margin:8px 0}.sum span{color:var(--sub);font-size:12px;display:block}
+.acts{display:flex;gap:10px;margin-top:18px}.acts .btn{flex:1;padding:13px 10px;text-align:center}
+.note{font-size:12px;color:var(--sub)}
+</style></head><body>
+<header class="hero"><div class="wrap">
+<small>バイトでもっと楽しく!</small>
+<h1>好きなことで働くって、<br>最高だ。<br><em>飲食店特化の求人サイト</em></h1>
+<p>学生もフリーターも、はじめてのバイトも大歓迎!</p>
+<div class="badges"><div class="badge" style="background:#f7706a">学生<span>OK</span></div><div class="badge" style="background:#4cbf7a">フリーター<span>OK</span></div><div class="badge" style="background:#4a9bf0">未経験<span>OK</span></div></div>
+<a class="btn" href="#search">求人を探す →</a></div></header>
+<main class="wrap">
+<h2>こんな人におすすめ!</h2><p class="lead">タップすると条件で絞り込めます</p>
+<div class="recs">
+<button class="rec" style="background:#fde0e0" data-cat="カフェ"><b>☕</b>カフェで働きたい!</button>
+<button class="rec" style="background:#fdeccc" data-cat="イタリアン"><b>🍝</b>おいしい料理と楽しい仲間がほしい!</button>
+<button class="rec" style="background:#d9f2e2" data-cat="ビストロ"><b>🍳</b>キッチンでスキルを身につけたい!</button>
+<button class="rec" style="background:#dcebfb" data-perk="シフト相談OK"><b>🗓️</b>シフトの融通がきくところがいい!</button></div>
+
+<h2 id="search">こんな求人があります!</h2><p class="lead">人気の飲食店で、楽しく働けるお仕事がたくさん♪</p>
+<div class="panel">
+<input type="search" id="q" placeholder="🔍 店名・エリア・駅名・キーワードで検索">
+<div class="row" id="cats"></div>
+<div class="sel row"><select id="area"><option value="">エリア:すべて</option></select><select id="wage"><option value="0">時給:指定なし</option><option value="1100">1,100円以上</option><option value="1200">1,200円以上</option><option value="1300">1,300円以上</option></select></div>
+<div class="row" id="perks"></div>
+<div class="row"><button class="chip" id="reset">条件をリセット</button></div></div>
+<div class="cnt" id="cnt"></div><div id="list"></div>
+<footer>🍴 食でつながる、最高のバイトライフを。</footer></main>
+
+<div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
+<script>
+const JOBS=[
+{id:1,name:"Sunny Cafe",kana:"サニーカフェ",cat:"カフェ",genre:"カフェ・スイーツ",area:"大阪市中央区",st:"心斎橋駅 徒歩3分",min:1200,max:1500,perks:["交通費支給","まかないあり","社員割引","制服貸与","シフト相談OK"],mail:"sunnycafe@example.com",c:"#f7706a",e:"☕",catch:"おしゃれな空間で働ける♪"},
+{id:2,name:"Trattoria Bella",kana:"トラットリア ベッラ",cat:"イタリアン",genre:"イタリアン・レストラン(ホール)",area:"大阪市北区",st:"梅田駅 徒歩5分",min:1150,max:1400,perks:["交通費支給","まかないあり","制服貸与","社割あり","シフト相談OK"],mail:"bella@example.com",c:"#4cbf7a",e:"🍝",catch:"おいしい料理と楽しい仲間と♪"},
+{id:3,name:"Bistro 365",kana:"ビストロ サンロクゴ",cat:"ビストロ",genre:"ビストロ・居酒屋(キッチン)",area:"大阪市福島区",st:"福島駅 徒歩4分",min:1100,max:1350,perks:["交通費支給","まかないあり","制服貸与","昇給あり","シフト相談OK"],mail:"bistro365@example.com",c:"#4a9bf0",e:"🍳",catch:"料理が好きなら最高の環境!"}];
+const $=s=>document.querySelector(s),st={q:"",cat:"",area:"",wage:0,perks:new Set()};
+const CATS=["カフェ","イタリアン","ビストロ"],PERKS=["交通費支給","まかないあり","制服貸与","昇給あり","シフト相談OK"];
+const yen=n=>n.toLocaleString()+"円",esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function chips(){$("#cats").innerHTML=CATS.map(c=>`<button class="chip ${st.cat==c?"on":""}" data-c="${c}">${c}</button>`).join("");
+$("#perks").innerHTML=PERKS.map(p=>`<button class="chip ${st.perks.has(p)?"on":""}" data-p="${p}">${p}</button>`).join("");}
+$("#area").innerHTML+=[...new Set(JOBS.map(j=>j.area))].map(a=>`<option>${a}</option>`).join("");
+function render(){chips();const k=st.q.trim().toLowerCase();
+const r=JOBS.filter(j=>(!k||[j.name,j.kana,j.genre,j.area,j.st,j.perks.join()].join(" ").toLowerCase().includes(k))&&(!st.cat||j.cat==st.cat)&&(!st.area||j.area==st.area)&&j.max>=st.wage&&[...st.perks].every(p=>j.perks.includes(p)));
+$("#cnt").textContent=r.length+"件の求人が見つかりました";
+$("#list").innerHTML=r.length?r.map(j=>`<article class="job"><div class="pic" style="background:${j.c}22"><span class="tag" style="background:${j.c}">${j.cat}</span>${j.e}</div><div class="body"><h3>${j.name}<small>(${j.kana})</small></h3><div class="genre">${j.genre}</div><dl><dt>💴 時給</dt><dd>${yen(j.min)}〜${yen(j.max)}</dd><dt>📍 勤務地</dt><dd>${j.area}(${j.st})</dd><dt>🎁 福利厚生</dt><dd>${j.perks.join(" / ")}</dd></dl><button class="btn" style="background:${j.c}" data-apply="${j.id}">応募する →</button></div></article>`).join(""):'<div class="empty">😢 条件に合う求人がありません。<br>条件を変えてみてください。</div>';}
+$("#q").oninput=e=>{st.q=e.target.value;render()};
+$("#area").onchange=e=>{st.area=e.target.value;render()};
+$("#wage").onchange=e=>{st.wage=+e.target.value;render()};
+$("#reset").onclick=()=>{Object.assign(st,{q:"",cat:"",area:"",wage:0,perks:new Set()});$("#q").value="";$("#area").value="";$("#wage").value=0;render()};
+document.addEventListener("click",e=>{const t=e.target.closest("button");if(!t)return;
+if(t.dataset.c){st.cat=st.cat==t.dataset.c?"":t.dataset.c;render()}
+else if(t.dataset.p){st.perks.has(t.dataset.p)?st.perks.delete(t.dataset.p):st.perks.add(t.dataset.p);render()}
+else if(t.classList.contains("rec")){if(t.dataset.cat)st.cat=t.dataset.cat;if(t.dataset.perk)st.perks.add(t.dataset.perk);render();$("#search").scrollIntoView()}
+else if(t.dataset.apply)openForm(JOBS.find(j=>j.id==t.dataset.apply))});
+/* 応募フォーム */
+let cur=null,form={name:"",email:"",birth:""};
+const modal=$("#modal"),sheet=$("#sheet");
+function openForm(j){cur=j;form={name:"",email:"",birth:""};step1();modal.classList.add("open")}
+function close(){modal.classList.remove("open")}
+modal.onclick=e=>{if(e.target==modal)close()};
+function step1(err={}){sheet.innerHTML=`<h3>${cur.name} に応募</h3><p class="note">${cur.genre} / ${yen(cur.min)}〜${yen(cur.max)}</p>
+<label>お名前</label><input type="text" id="fn" value="${esc(form.name)}" placeholder="例:山田 太郎"><div class="err">${err.name||""}</div>
+<label>メールアドレス</label><input type="email" id="fe" value="${esc(form.email)}" placeholder="example@mail.com"><div class="err">${err.email||""}</div>
+<label>生年月日</label><input type="date" id="fb" value="${form.birth}" max="${new Date().toISOString().slice(0,10)}"><div class="err">${err.birth||""}</div>
+<div class="acts"><button class="btn ghost" id="x">キャンセル</button><button class="btn" id="nx">確認へ →</button></div>`;
+$("#x").onclick=close;$("#nx").onclick=()=>{form={name:$("#fn").value.trim(),email:$("#fe").value.trim(),birth:$("#fb").value};const er={};
+if(!form.name)er.name="お名前を入力してください";if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))er.email="正しいメールアドレスを入力してください";if(!form.birth)er.birth="生年月日を選択してください";
+Object.keys(er).length?step1(er):step2()}}
+function step2(){sheet.innerHTML=`<h3>入力内容の確認</h3><div class="sum"><p><span>応募先</span>${cur.name}</p><p><span>お名前</span>${esc(form.name)}</p><p><span>メールアドレス</span>${esc(form.email)}</p><p><span>生年月日</span>${esc(form.birth)}</p></div>
+<div class="acts"><button class="btn ghost" id="bk">← 修正</button><button class="btn g" id="go">この内容で応募</button></div>`;
+$("#bk").onclick=()=>step1();$("#go").onclick=submit}
+const FORM_URL="https://formspree.io/f/xqpejnog";
+async function submit(){$("#go").disabled=true;$("#go").textContent="送信中…";let saved=false;
+try{const r=await fetch(FORM_URL,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({応募先:cur.name,店舗ID:cur.id,店舗メール:cur.mail,お名前:form.name,email:form.email,生年月日:form.birth,_subject:"【求人応募】"+cur.name+" / "+form.name})});saved=r.ok}catch(e){}
+step3(saved)}
+function step3(saved){const body=encodeURIComponent(`【${cur.name} 求人応募】\nお名前:${form.name}\nメール:${form.email}\n生年月日:${form.birth}\n`);
+sheet.innerHTML=`<h3>🎉 ${saved?"応募を受け付けました":"あと一歩です"}</h3><p>${saved?`${cur.name} への応募を送信しました。お店からの連絡をお待ちください。`:"送信に失敗しました。通信状況をご確認のうえ、下のボタンからメールで応募情報をお店へ送信してください。"}</p>
+<p class="note"></p>
+<div class="acts"><a class="btn b" href="mailto:${cur.mail}?subject=${encodeURIComponent("【求人応募】"+cur.name)}&body=${body}">✉️ お店にメールする</a><button class="btn ghost" id="x">閉じる</button></div>`;$("#x").onclick=close}
+render();
+</script></body></html>
